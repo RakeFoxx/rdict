@@ -40,7 +40,8 @@ window.show()
 rdict.parse()
 
 def go():
-	output_box.setPlainText(rdict.define(input_box.text()))
+	output_box.setPlainText('')
+	output_box.appendHtml(rdict.define(input_box.text()))
 
 input_button.clicked.connect(go)
 

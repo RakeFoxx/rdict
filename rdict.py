@@ -5,6 +5,7 @@
 import json
 
 datafile = 'rdict.json'
+jdict = None
 
 # reads json file 'datafile' into 'jdict' list
 def parse():
@@ -15,14 +16,16 @@ def parse():
 	jdict = json.loads(raw)
 
 # recursively adds lines of formatted 'val' to 'outlist'
-def _fstr(val, outlist, offstr = '', tabstr = ' ' * 4):
+def _fstr(val, outlist, offstr = '', tabstr = '&nbsp;' * 4):
 	if type(val) == dict:
 		for k, v in val.items():
-			outlist.append('{}{}:'.format(offstr, k))
+			outlist.append('{}{}:'.format(offstr, '<b>' + k + '</b>'))
 			_fstr(v, outlist, offstr + tabstr, tabstr)
 	elif type(val) == list:
 		if len(val) == 1:
 			_fstr(val[0], outlist, offstr, tabstr)
+		elif type(val[0]) == str:
+			outlist.append(offstr + ', '.join(val))
 		else:
 			for i in range(len(val)):
 				outlist.append('{}({})'.format(offstr, i + 1))
@@ -34,14 +37,14 @@ def _fstr(val, outlist, offstr = '', tabstr = ' ' * 4):
 def fstr(val):
 	l = []
 	_fstr(val, l)
-	return '\n'.join(l); # no additional ending '\n'
+	return '<br/>'.join(l); # no additional ending '\n'
 
 # returns formatted word definition for w
 def define(w):
 	# linear search
 	global jdict
 	val = [x for x in jdict if x['word'] == w][0]
-	return fstr(val)
+	return fstr(val['meaning'])
 
 # cli dictionary when run directly
 def main():
