@@ -4,7 +4,7 @@
 
 import json
 
-datafile = 'rdict.json'
+datafile = '/Users/zero/Desktop/F4T Dictionary/rdict/rdict.json'
 jdict = None
 
 # reads json file 'datafile' into 'jdict' list
@@ -41,10 +41,15 @@ def fstr(val):
 
 # returns formatted word definition for w
 def define(w):
-	# linear search
 	global jdict
-	val = [x for x in jdict if x['word'] == w][0]
-	return fstr(val['meaning'])
+	nf_msg = '<span style="color:red">Sorry! Word not found.</span>'
+	# linear search
+	val = [x for x in jdict if x['word'] == w]
+	if len(val):
+		val = val[0]['meaning']
+	else:
+		val = nf_msg
+	return fstr(val)
 
 # cli dictionary when run directly
 def main():
