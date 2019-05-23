@@ -4,6 +4,7 @@
 
 import json
 
+#TODO: solve absolute path issue in the scr/.../rdict.py file
 datafile = '/Users/zero/Desktop/F4T Dictionary/rdict/rdict.json'
 jdict = None
 
