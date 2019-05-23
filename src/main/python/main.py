@@ -51,6 +51,7 @@ def go():
 	output_box.verticalScrollBar().setValue(output_box.verticalScrollBar().minimum())
 
 input_button.clicked.connect(go)
+input_box.returnPressed.connect(go)
 
 exit_code = appctxt.app.exec_() # 2. Invoke appctxt.app.exec_()
 sys.exit(exit_code)
