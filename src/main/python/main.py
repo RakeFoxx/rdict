@@ -3,6 +3,7 @@ from fbs_runtime.application_context import ApplicationContext
 from PyQt5.QtWidgets import *
 import sys
 import rdict
+import hdict
 
 appctxt = ApplicationContext() # 1. Instantiate ApplicationContext
 app = QApplication(sys.argv)
@@ -25,10 +26,17 @@ input_window.show()
 
 output_window = QWidget()
 
+output_box_english = QPlainTextEdit()
+output_box_english.setReadOnly(True)
+output_box_hindi = QPlainTextEdit()
+output_box_hindi.setReadOnly(True)
+
+output_tabs = QTabWidget()
+output_tabs.addTab(output_box_english, 'English')
+output_tabs.addTab(output_box_hindi, 'Hindi')
+
 output_layout = QHBoxLayout()
-output_box = QPlainTextEdit()
-output_box.setReadOnly(True)
-output_layout.addWidget(output_box)
+output_layout.addWidget(output_tabs)
 
 output_window.setLayout(output_layout)
 output_window.show()
@@ -44,11 +52,16 @@ window.setWindowTitle('F4T Dictionary')
 window.show()
 
 rdict.parse()
+hdict.parse()
 
 def go():
-	output_box.setPlainText('')
-	output_box.appendHtml(rdict.define(input_box.text()))
-	output_box.verticalScrollBar().setValue(output_box.verticalScrollBar().minimum())
+	output_box_english.clear()
+	output_box_english.appendHtml(rdict.define(input_box.text()))
+	output_box_english.verticalScrollBar().setValue(output_box_english.verticalScrollBar().minimum())
+
+	output_box_hindi.clear()
+	output_box_hindi.appendHtml(hdict.define(input_box.text()))
+	output_box_hindi.verticalScrollBar().setValue(output_box_hindi.verticalScrollBar().minimum())
 
 input_button.clicked.connect(go)
 input_box.returnPressed.connect(go)
