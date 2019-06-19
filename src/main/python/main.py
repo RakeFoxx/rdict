@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 from fbs_runtime.application_context import ApplicationContext
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 import sys
 import rdict
@@ -9,7 +11,24 @@ appctxt = ApplicationContext() # 1. Instantiate ApplicationContext
 app = QApplication(sys.argv)
 app.setStyle('Fusion')
 
-print("hello... anyone there?")
+print('hello... anyone there?')
+
+header_window = QWidget()
+
+header_layout = QHBoxLayout()
+
+header_left_label = QLabel()
+header_left_img = QPixmap('/Users/zero/Desktop/F4T Dictionary/rdict/f4t_logo.png').scaledToHeight(64, Qt.SmoothTransformation)
+header_left_label.setPixmap(header_left_img)
+header_layout.addWidget(header_left_label)
+
+header_right_label = QLabel()
+header_right_img = QPixmap('/Users/zero/Desktop/F4T Dictionary/rdict/nss_logo.png').scaledToHeight(64, Qt.SmoothTransformation)
+header_right_label.setPixmap(header_right_img)
+header_layout.addWidget(header_right_label, alignment = Qt.AlignRight)
+
+header_window.setLayout(header_layout)
+header_window.show()
 
 input_window = QWidget()
 
@@ -41,13 +60,24 @@ output_layout.addWidget(output_tabs)
 output_window.setLayout(output_layout)
 output_window.show()
 
+footer_window = QWidget()
+
+footer_layout = QHBoxLayout()
+footer_label = QLabel('<font color="#555555">Designed and developed by NSS IITD, in collaboration with F4TF.</font>')
+footer_layout.addWidget(footer_label, alignment = Qt.AlignCenter)
+footer_window.setLayout(footer_layout)
+footer_window.show()
+
 window = QWidget()
 
 layout = QVBoxLayout()
+layout.addWidget(header_window)
 layout.addWidget(input_window)
 layout.addWidget(output_window)
+layout.addWidget(footer_window)
 
 window.setLayout(layout)
+window.resize(512, 512)
 window.setWindowTitle('F4T Dictionary')
 window.show()
 
