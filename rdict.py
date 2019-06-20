@@ -2,10 +2,12 @@
 
 # TODO: support for derivative words
 
+from fbs_runtime.application_context import ApplicationContext
 import json
 
 # TODO: solve absolute path issue in the scr/.../rdict.py file
-datafile = '/Users/zero/Desktop/F4T Dictionary/rdict/rdict.json'
+appctxt = ApplicationContext()
+datafile = appctxt.get_resource('rdict.json')
 jdict = None
 
 # reads json file 'datafile' into 'jdict' list

@@ -7,23 +7,58 @@ import sys
 import rdict
 import hdict
 
+print('Word Book. Alpha version. Developer: Rishabh Ranjan')
 appctxt = ApplicationContext() # 1. Instantiate ApplicationContext
 app = QApplication(sys.argv)
 app.setStyle('Fusion')
 
-print('hello... anyone there?')
+# upper_window = QWidget()
+# 
+# upper_layout = QVBoxLayout()
+# 
+# upper_title = QLabel('<b><span style="color: #4d2600">Word Book</span></b>')
+# upper_title.setFont(QFont('Chalkboard', 48))
+# upper_layout.addWidget(upper_title, alignment = Qt.AlignCenter)
+# 
+# upper_subtitle = QLabel('Make words your best friends!')
+# upper_subtitle.setFont(QFont('Chalkboard', 20))
+# upper_layout.addWidget(upper_subtitle, alignment = Qt.AlignCenter)
+# 
+# upper_layout.setAlignment(Qt.AlignTop)
+# upper_window.setLayout(upper_layout)
+# 
+# lower_window = QWidget()
+# 
+# lower_layout = QVBoxLayout()
+# lower_label = QLabel('Click to continue...')
+# lower_label.setFont(QFont('Chalkboard', 20))
+# lower_layout.addWidget(lower_label, alignment = Qt.AlignCenter)
+# 
+# lower_layout.setAlignment(Qt.AlignBottom)
+# lower_window.setLayout(lower_layout)
+# 
+# cover_layout = QVBoxLayout()
+# cover_layout.addWidget(upper_window)
+# cover_layout.addWidget(lower_window)
+cover_window = QWidget()
+bg_img = QImage(appctxt.get_resource('bad_bg.jpeg'))
+palette = QPalette()
+palette.setBrush(10, QBrush(bg_img))
+cover_window.setPalette(palette)
+cover_window.setFixedSize(600, 600)
+# cover_window.setLayout(cover_layout)
+cover_window.show()
 
 header_window = QWidget()
 
-header_layout = QHBoxLayout()
-
+header_layout = QHBoxLayout() 
 header_left_label = QLabel()
-header_left_img = QPixmap('/Users/zero/Desktop/F4T Dictionary/rdict/f4t_logo.png').scaledToHeight(64, Qt.SmoothTransformation)
+header_left_img = QPixmap(appctxt.get_resource('f4t_logo.png')).scaledToHeight(64, Qt.SmoothTransformation)
 header_left_label.setPixmap(header_left_img)
 header_layout.addWidget(header_left_label)
 
 header_right_label = QLabel()
-header_right_img = QPixmap('/Users/zero/Desktop/F4T Dictionary/rdict/nss_logo.png').scaledToHeight(64, Qt.SmoothTransformation)
+header_right_img = QPixmap(appctxt.get_resource('nss_logo.png')).scaledToHeight(64, Qt.SmoothTransformation)
 header_right_label.setPixmap(header_right_img)
 header_layout.addWidget(header_right_label, alignment = Qt.AlignRight)
 
@@ -77,9 +112,13 @@ layout.addWidget(output_window)
 layout.addWidget(footer_window)
 
 window.setLayout(layout)
-window.resize(512, 512)
-window.setWindowTitle('F4T Dictionary')
-window.show()
+window.resize(600, 600)
+window.setWindowTitle('Word Book')
+# window.show()
+def f(*argv):
+    window.show()
+    cover_window.hide()
+cover_window.mousePressEvent = f
 
 rdict.parse()
 hdict.parse()

@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-datafile = '/Users/zero/Desktop/F4T Dictionary/rdict/hdict.data'
+
+from fbs_runtime.application_context import ApplicationContext
+
+appctxt = ApplicationContext()
+datafile = appctxt.get_resource('hdict.data')
 tdict = {}
 
 def parse():
